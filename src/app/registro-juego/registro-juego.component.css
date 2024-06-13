@@ -1,0 +1,73 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: #384B7D;
+}
+body{
+    min-height: 100vh; /* Asegura que el body tenga al menos la altura de la ventana */
+    box-sizing: border-box;
+}
+h1{
+    text-align: center;
+    color: white;
+}
+#formulario{
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 40rem;
+}
+.color-error{
+    color: red;
+}
+.input-error{
+    border-color: red;
+}
+.seccion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+img{
+    width: 25%;
+}
+@media screen and (max-width: 760px) {
+    img{
+        display: none;
+    }
+    #formulario{
+        background-color: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 80%; /* Ancho máximo del formulario */
+        margin: 0 auto; /* Centra horizontalmente el formulario */
+        display: flex;
+        flex-direction: column;
+        
+    }
+    .columna {
+        width: 100%; /* Asegurar que el formulario ocupe toda la pantalla en dispositivos pequeños */
+    }
+}
+@media screen and (max-width: 1500px) {
+    img{
+        display: none;
+    }
+    #formulario{
+        background-color: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 80%; /* Ancho máximo del formulario */
+        margin: 0 auto; /* Centra horizontalmente el formulario */
+        display: flex;
+        flex-direction: column;
+        
+    }
+    .columna {
+        width: 100%; /* Asegurar que el formulario ocupe toda la pantalla en dispositivos pequeños */
+    }
+}

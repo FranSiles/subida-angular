@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Perfil</title> 
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="../../assets/img/logocontrol.svg" alt="Logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" [routerLink]="['/paginaprincipal']">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a [routerLink]="['/registrojuego']" class="nav-link" *ngIf="usuario">Registrar juego</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" *ngIf="!usuario" [routerLink]="['/iniciosesion']">Inicio Sesion</a>
+                        <a class="nav-link" *ngIf="usuario" [routerLink]="['/paginaprincipal']" (click)="logout()">Desconectar</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container emp-profile">
+        <form method="post">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="profile-img">
+                        <img [src]="'http://localhost:80/'+ usuario.foto" class="card-img-top card-img-responsive" alt="avatar">
+                        <div class="file btn btn-lg btn-primary">
+                            Change Photo
+                            <!-- Corrigiendo la estructura de form -->
+                                <div data-mdb-input-init class="form-control-sm">
+                                    <input type="file" name="foto" accept="image/*" class="form-control" (change)="onFileSelected($event)"/>
+                                </div>
+                        </div>
+                        <form (ngSubmit)="cambiarfoto()" method="POST" enctype="multipart/form-data">
+                            <input class="btn btn-primary mt-2" type="submit" value="Subir">
+                            <p class="color-error" *ngIf="errors && errors.error && errors.error.errors && errors.error.errors.foto">{{ errors.error.errors.foto }}</p>
+                            <p class="color-error" *ngIf="errors=='Debe introducir una foto para subirla'">{{ errors }}</p>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="profile-head">
+                        <h5>{{usuario.nomUsuario!}}</h5>
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Sobre ti</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-content profile-tab" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Name:</label>
+                                </div>
+                                <div class="col-md-6">
+                                    {{usuario.nomUsuario!}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Email:</label>
+                                </div>
+                                <div class="col-md-6">
+                                    {{usuario.email!}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <button class="profile-edit-btn" [routerLink]="['/modificarusuario']">Editar</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="profile-edit-btn btn-danger" (click)="eliminarId(usuario.codUsuario!)">Borrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <section>
+            <h1 class="text-center">Tus comentarios</h1>
+            <h2 *ngIf="!comenatirosvaloraciones">Estamos esperando que comentes en nuestra web</h2>
+            <div class="d-flex align-items-center justify-content-center" *ngFor="let comenatirosvaloracione of comenatirosvaloraciones">
+                <div class="card w-50 mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Comentario: {{comenatirosvaloracione.comentario}}</h5>
+                        <p class="card-text">Valoracion: {{comenatirosvaloracione.valoracion}}</p>
+                        <button class="btn btn-primary" (click)="enviarId(comenatirosvaloracione.codJuego!)">Ver</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <h1 class="text-center">Tus juegos</h1>
+            <div class="container mt-4">
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                  <div class="col" *ngFor="let juego of juegos">
+                    <div class="card h-100 shadow">                         
+                        <div class="card-img-container">
+                            <img [src]="'http://100.29.33.112/' + juego.imagen" class="card-img-top card-img-responsive" alt="">
+                        </div>
+                        <div class="card-body">
+                        <h5 class="card-title">{{juego.nombre}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Desarrollador: {{juego.desarrollador}}</h6>
+                        <p class="card-text" style="height: 100px; overflow: hidden;">{{ juego.descripcion.slice(0, 150) }}{{ juego.descripcion.length > 150 ? '...' : '' }}</p>
+                        <button class="btn btn-primary" (click)="enviarId(juego.codJuego!)">ver más</button>
+                        <button class="btn btn-danger" (click)="eliminarjuego(juego.codJuego!)">Eliminar</button>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+#carousel-section {
+    margin-bottom:90px; /* Ajusta el valor según la cantidad de espacio que desees agregar */
+  }
+  #carousel-section h1{
+    text-align: center;
+  }
+  #carousel-section .caja-carrousel {
+    height: 600px;
+    margin: 100;
+    display: grid;
+    grid-template-rows: 500px 100px;
+    grid-template-columns: 1fr 30px 30px 30px 30px 30px 1fr;
+    align-items: center;
+    justify-items: center;
+  }
+  
+  #carousel-section #carousel { 
+    grid-row: 1 / 2;
+    grid-column: 1 / 8;
+    width: 90vw;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    perspective: 600px;
+    --items: 5;
+    --middle: 3;
+    --position: 1;
+    pointer-events: none;
+  }
+  
+  #carousel-section .item {
+    border-radius: 30px;
+    position: absolute;
+    width: 300px;
+    height: 400px;
+    background-color:  #12214A;
+    --r: calc(var(--position) - var(--offset));
+    --abs: max(calc(var(--r) * -1), var(--r));
+    transition: all 0.25s linear;
+    transform: rotateY(calc(-10deg * var(--r))) translateX(calc(-300px * var(--r)));
+    z-index: calc((var(--position) - var(--abs)));
+    padding: 20px;
+    box-sizing: border-box; /* Para que el padding no afecte al tamaño total */
+  }
+  
+  #carousel-section .item img {
+    max-width: 100%; /* Limita el ancho máximo de la imagen al ancho del contenedor */
+    height: 300px; /* Fija la altura de la imagen */
+    margin-bottom: 10px; /* Agrega un espacio en la parte inferior de la imagen */
+    border-radius: 30px; /* Aplica bordes redondeados a la imagen */
+    object-fit: cover; /* Escala la imagen para que se ajuste al contenedor sin distorsionarla y sin recortarla */
+}
+  
+  #carousel-section .item h2 {
+    margin: 0;
+        color: $color-titulo;
+
+  }
+  
+  #carousel-section .item p {
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: $color-titulo;
+  }
+  
+  #carousel-section .item:nth-of-type(1) {
+    --offset: 1;
+    background-color:  #12214A;
+  }
+  #carousel-section .item:nth-of-type(2) {
+    --offset: 2;
+    background-color:  #12214A;
+  }
+  #carousel-section .item:nth-of-type(3) {
+    --offset: 3;
+    background-color: #12214A;
+  }
+  #carousel-section .item:nth-of-type(4) {
+    --offset: 4;
+    background-color:  #12214A;
+  }
+  #carousel-section .item:nth-of-type(5) {
+    --offset: 5;
+    background-color:  #12214A;
+  }
+  
+  #carousel-section input:nth-of-type(1) {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+  }
+  #carousel-section input:nth-of-type(1):checked ~ #carousel {
+    --position: 1;
+  }
+  
+  #carousel-section input:nth-of-type(2) {
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
+  }
+  #carousel-section input:nth-of-type(2):checked ~ #carousel {
+    --position: 2;
+  }
+  
+  #carousel-section input:nth-of-type(3) {
+    grid-column: 4 /5;
+    grid-row: 2 / 3;
+  }
+  #carousel-section input:nth-of-type(3):checked ~ #carousel {
+    --position: 3;
+  }
+  
+  #carousel-section input:nth-of-type(4) {
+    grid-column: 5 / 6;
+    grid-row: 2 / 3;
+  }
+  #carousel-section input:nth-of-type(4):checked ~ #carousel {
+    --position: 4;
+  }
+  
+  #carousel-section input:nth-of-type(5) {
+    grid-column: 6 / 7;
+    grid-row: 2 / 3;
+  }
+  #carousel-section input:nth-of-type(5):checked ~ #carousel {
+    --position: 5;
+  }
+  
+  #carousel-section .control-carrousel {
+    /* Estilos específicos para los controles del carrousel */
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: gray;
+    border-radius: 50%; /* Esto crea un círculo */
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  
+  #carousel-section .control-carrousel:last-child {
+    margin-right: 0; /* Elimina el margen derecho del último control */
+  }

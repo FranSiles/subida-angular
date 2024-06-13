@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nombre del Juego</title>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <!-- SVG del logo -->
+            <img src="../../assets/img/logocontrol.svg" alt="">
+
+        </div>
+        <input type="checkbox" id="menu-toggle" class="menu-toggle">
+        <label for="menu-toggle" class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+        <ul class="nav-links">
+            <li><a [routerLink]="['/paginaprincipal']">Home</a></li>
+            <!-- <li><a href="#">Enlace 2</a></li> -->
+            <li *ngIf="usuario"><a  [routerLink]="['/juego']" (click)="logout()">Desconectar</a></li>
+            <li *ngIf="usuario"><a  [routerLink]="['/juego']" (click)="enviarIdperfil()">Perfil</a></li>
+            <li *ngIf="!usuario"><a [routerLink]="['/iniciosesion']" >Iniciar sesion</a></li>
+        </ul>
+    </nav>
+    <!-- Contenido principal -->
+    <div class="main-content">
+        <div class="left-column">
+        <!-- Información del juego -->
+        <div class="game-info"> 
+            <h1 style="display: block; text-align: left;">{{ juego.nombre }}</h1>
+            <h2>Desarrollador: {{juego.desarrollador}}</h2>
+            <h2 *ngIf="!juego.generoSecundario">Genero:{{juego.generoPrincipal}}</h2>
+            <h2 *ngIf="juego.generoSecundario">Genero:{{juego.generoPrincipal}},{{juego.generoSecundario}}</h2>
+            <div class="rating">
+              <span class="stars" *ngIf="!mediaValoracion">&#9733;0</span>
+                <span class="stars" *ngIf="mediaValoracion>0">&#9733;{{mediaValoracion}}</span>
+            </div>
+            <h2>Publicado por: {{nomusuario}}</h2>
+            <div class="pegi">
+            <img *ngIf="juego.pegi==3" [src]="rutaImagen1" alt="PEGI" width="100px">
+            <img *ngIf="juego.pegi==7" [src]="rutaImagen2" alt="PEGI" width="100px">
+            <img *ngIf="juego.pegi==12" [src]="rutaImagen3" alt="PEGI" width="100px">
+            <img *ngIf="juego.pegi==16" [src]="rutaImagen4" alt="PEGI" width="100px">
+            <img *ngIf="juego.pegi==18" [src]="rutaImagen5" alt="PEGI" width="100px">
+            </div>
+        </div>
+    </div>
+    <div class="right-column">
+            <div class="trailer">
+                <img *ngIf="!safeTrailerUrl" [src]="'http://localhost:80/' + juego.imagen" width="560" height="315">
+                <iframe *ngIf="safeTrailerUrl" width="560" height="315" [src]="safeTrailerUrl" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <!-- Descripción del juego -->
+            <div class="description">
+                <h2>Descripción del Juego</h2>
+                <p>{{juego.descripcion}}</p>
+            </div>
+    </div>  
+</div>
+<div id="chart_div"  class="chart-container"></div>
+
+<div class="comment-textarea">
+    <textarea placeholder="Deja tu comentario aquí" [(ngModel)]="comentarios.texto">{{comentarios.texto}}</textarea>
+    <div class="star-wrapper">
+      <a [routerLink]="['/juego']" routerLinkActive="router-link-active"
+         class="fas fa-star"
+         *ngFor="let star of reversedStars; let i = index"
+         [class.selected]="valoracion.puntuacion > (stars.length - 1 - i)"
+         (click)="selectRating(stars.length - i)">
+      </a>
+    </div>
+    <button type="submit" (click)="enviarComentario()">Enviar</button>
+    <!-- <h2 *ngif="!usuario">NO puedes enviar un comentario si no has iniciado sesion</h2> -->
+    <h3 class="error-message" *ngIf="errorMessage">{{errorMessage}}</h3>
+  </div>
+  
+
+  <section class="comentarios" id="comentarios">
+    <h1 class="heading-comentarios">COMENTARIOS</h1>
+    <div class="caja-contenedor-comentarios">
+      <h2  *ngIf="nocomentarios">{{nocomentarios}}</h2>
+      <div *ngFor="let comment of comments" class="caja">
+        <div class="usuario">
+          <img [src]="'http://100.29.33.112/' + comment.usuario.foto" alt="">
+          <div class="info-usuario">
+            <p>{{ comment.usuario.nomUsuario }}</p>
+            <div class="valoracion">
+              <p>{{ comment.valoracion }} <i class="fa-solid fa-star" style="color: #FFD43B;"></i></p>
+            </div>
+          </div>
+        </div>
+        <div class="comentario">
+          <p>{{ comment.texto }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+<section class="carrousel" id="carousel-section">
+    <h1 class="heading-pasarela">JUEGOS QUE PUEDEN INTERESARTE</h1>
+<div class="caja-carrousel">
+    <input type="radio" name="position" class="control-carrousel" checked>
+<input type="radio" name="position" class="control-carrousel">
+<input type="radio" name="position" class="control-carrousel">
+<input type="radio" name="position" class="control-carrousel">
+<input type="radio" name="position" class="control-carrousel">
+    <main id="carousel">
+        <div *ngFor="let juego of juegos" class="item">
+            <img [src]="'http://100.29.33.112/'+juego.imagen" alt="Videojuego 1" (click)="enviarId(juego.codJuego!)">
+            <h2>{{juego.nombre}}</h2>
+            <p *ngIf="!juego.generoSecundario">{{juego.generoPrincipal}}</p>
+            <p *ngIf="juego.generoSecundario">{{juego.generoPrincipal}},{{juego.generoSecundario}}</p>
+        </div>
+    </main>
+</div>
+</section>
+<footer class="footer">
+    <div class="waves">
+    <div class="wave" id="wave1"></div>
+    <div class="wave" id="wave2"></div>
+    <div class="wave" id="wave3"></div>
+    <div class="wave" id="wave4"></div>
+    </div>
+    <!--<ul class="social-icon">
+    <li class="social-icon__item"><a class="social-icon__link" href="#">
+        <ion-icon name="logo-facebook"></ion-icon>
+        </a></li>
+    <li class="social-icon__item"><a class="social-icon__link" href="#">
+        <ion-icon name="logo-twitter"></ion-icon>
+        </a></li>
+    <li class="social-icon__item"><a class="social-icon__link" href="#">
+        <ion-icon name="logo-linkedin"></ion-icon>
+        </a></li>
+    <li class="social-icon__item"><a class="social-icon__link" href="#">
+        <ion-icon name="logo-instagram"></ion-icon>
+        </a></li>
+    </ul>-->
+    <ul>
+      GAMING HOME
+    </ul>
+    <ul class="menu">
+    <li class="menu__item"><a class="menu__link" [routerLink]="['/paginaprincipal']">HOME</a></li>
+    <li class="menu__item"><a class="menu__link" [routerLink]="['/registrojuego']" *ngIf="usuario">REGISTROJUEGO</a></li>
+    <li class="menu__item"><a class="menu__link" [routerLink]="['/juego']" (click)="enviarIdperfil()" *ngIf="usuario">PERFIL</a></li>
+    </ul>
+    <ul>
+      <i class="fa-regular fa-copyright"></i>
+      Francisco Siles España y Jeramy Bósquez Domínguez
+    </ul>
+</footer>
+
+<!-- <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script> -->
+
+</body>
+<script src="https://kit.fontawesome.com/5ea815c1d0.js"></script>
+      <div class="wraper">
+        <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="gitlabBilal" data-color="#FFDD00" data-emoji="" data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff"></script>
+      </div>
+</html>

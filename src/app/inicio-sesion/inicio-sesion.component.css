@@ -1,0 +1,46 @@
+html,body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: #384B7D;
+  display: flex;
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
+  flex-direction: column; /* Asegura que el contenido dentro del body sea una columna */
+}
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Asegura que el body tenga al menos la altura de la ventana */
+  box-sizing: border-box;
+}
+
+.bg-glass {
+  background-color: hsla(0, 0%, 100%, 0.9) !important;
+  backdrop-filter: saturate(200%) blur(25px);
+}
+.imagen{
+  width: 50%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  }
+.btn{
+  background-color: #7283B0;
+  color: white;
+}
+.btn:hover{
+  background-color: #7283B0;
+  color: white;
+}
+
+.input-error {
+  border-color: red;
+}
+.color-error{
+  color: red;
+}
+.texto-centrado{
+  text-align: center;
+}
+

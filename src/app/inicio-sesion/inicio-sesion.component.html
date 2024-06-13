@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>inicio-sesion</title>
+</head>
+<body>
+<section class="seccion-1">
+<div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
+    <div class="row gx-lg-5 align-items-center mb-5 texto-centrado">
+    <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
+        <!-- <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
+            Bienvenido 
+            <br/> -->
+            <h1>
+            <span class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 75%)">GAMING HOME</span>
+        </h1>
+        <img [src]="rutaImagen1" alt="logo" class="imagen">
+        <p class="mb-4 opacity-70" style="color: hsl(218, 81%, 85%)">
+            Aquí, en nuestra Gaming House, no solo puedes explorar y descubrir nuevos juegos, sino también compartir tus experiencias y opiniones con una vibrante comunidad de jugadores apasionados.
+        </p>
+    </div>
+
+    <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+        <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
+        <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
+
+        <div class="card bg-glass">
+            <div class="card-body px-4 py-5 px-md-5">
+            <form (ngSubmit)="loginUsuario()">
+                <!-- Casilla de email -->
+                <div data-mdb-input-init class="form-outline mb-4">
+                <input *ngIf="!errors || !errors.error || !errors.error.errors || !errors.error.errors.email"  type="email" name="email" class="form-control" placeholder="Correo electronico" [(ngModel)]="usuario.email"/>
+                <input *ngIf="errors && errors.error && errors.error.errors && errors.error.errors.email" type="email" name="email" class="form-control input-error" placeholder="Correo electronico" [(ngModel)]="usuario.email"/>
+                    <p class="color-error" *ngIf="errors && errors.error && errors.error.errors && errors.error.errors.email">{{ errors.error.errors.email[0] }}</p>
+                </div>
+
+            <!-- casilla de contraseña -->
+            <div data-mdb-input-init class="form-outline mb-4">
+                <input *ngIf="!errors || !errors.error || !errors.error.errors || !errors.error.errors.password"  type="password" name="password" class="form-control" placeholder="contraseña" [(ngModel)]="usuario.password"/>
+                <input *ngIf="errors && errors.error && errors.error.errors && errors.error.errors.email" type="password" name="password" class="form-control input-error" placeholder="Contraseña" [(ngModel)]="usuario.password"/>
+                <p class="color-error" *ngIf="errors && errors.error && errors.error.errors && errors.error.errors.password">{{ errors.error.errors.password[0] }}</p>
+            </div>
+            <div data-mdb-input-init class="form-outline mb-4">
+                <p class="color-error" *ngIf="errors && errors.error && errors.error.message=='Credenciales incorrectas'">{{errors.error.message}}</p>
+            </div>
+
+            <!-- botones -->
+            <div class="d-grid gap-2">
+                <input type="submit" class="btn" value="Iniciar sesion">
+            </div>
+            </form>
+            <br>
+            <div class="d-grid gap-2">
+                <button class="btn " type="button" [routerLink]="['/registro']" routerLinkActive="router-link-active">Registrarse</button>
+            </div>
+            
+        </div>
+        </div>
+    </div>
+    </div>
+</div>
+</section>
+</body>
+</html>
+

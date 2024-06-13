@@ -1,0 +1,171 @@
+@charset "UTF-8";
+@font-face {
+  font-family: Source Sans3 italic;
+  src: url(../SourceSans3-Italic-VariableFont_wght.ttf);
+}
+@font-face {
+  font-family: Source Sans3;
+  src: url(../SourceSans3-VariableFont_wght.ttf);
+}
+body {
+  font-family: "Source Sans3";
+  margin: 0;
+}
+
+h1, h2, h3 {
+  font-family: "Source Sans3 italic";
+}
+
+.main-content {
+  display: flex;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../fondo.jpg");
+  background-size: cover;
+  color: #000000;
+  padding: 37px;
+}
+
+.game-info h1 {
+  font-size: 90px;
+  color: white;
+  margin-bottom: 5px;
+}
+
+.game-info h2 {
+  font-size: 20px;
+  color: white;
+  margin: 1px;
+}
+
+.stars {
+  color: yellow;
+}
+
+.pegi {
+  margin-top: 170px;
+}
+
+.trailer {
+  margin-top: auto;
+  max-width: 100%; /* Establece un ancho máximo */
+}
+
+.description {
+  color: white;
+  text-align: center;
+}
+
+.rating {
+  font-size: 40px;
+  color: white;
+}
+
+/* Estilos para la columna izquierda */
+.left-column {
+  flex: 1; /* La columna izquierda tomará el 50% del ancho del contenedor principal */
+  padding-right: 20px; /* Espacio entre columnas */
+}
+
+/* Estilos para la columna derecha */
+.right-column {
+  flex: 1; /* La columna derecha tomará el 50% del ancho del contenedor principal */
+  padding-left: 20px; /* Espacio entre columnas */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centra horizontalmente los elementos */
+}
+
+/* Media query para dispositivos con una anchura máxima de 946px */
+/* Media query para dispositivos con una anchura máxima de 946px */
+@media only screen and (max-width: 946px) {
+  .main-content {
+    flex-direction: column; /* Cambia la dirección del flex a columna */
+    align-items: center; /* Centra horizontalmente los elementos */
+    padding: 20px; /* Ajusta el relleno para dispositivos más pequeños */
+  }
+  .left-column,
+  .right-column {
+    flex: 1; /* Ambas columnas ocuparán el 100% del ancho */
+    padding: 0; /* Elimina el relleno entre columnas */
+  }
+  .right-column .trailer iframe {
+    width: 100%; /* Asegura que el iframe del trailer ocupe todo el ancho disponible */
+    height: auto;
+  }
+  .game-info {
+    text-align: center; /* Centra horizontalmente el contenido de la game-info */
+  }
+  .game-info h1 {
+    font-size: 60px; /* Centra horizontalmente el contenido de la game-info */
+  }
+  .game-info .pegi {
+    margin-top: 20px; /* Ajusta el margen superior del PEGI */
+  }
+}
+/* Estilos para el área de texto de comentarios */
+/* Estilos para el área de texto de comentarios */
+.comment-textarea {
+  text-align: center; /* Centra el textarea */
+  margin-bottom: 20px; /* Espacio entre el textarea y la sección de comentarios */
+  margin-top: 40px;
+}
+
+.comment-textarea textarea {
+  background-color: #12214A;
+  color: white;
+  width: 50%; /* Ancho del textarea */
+  height: 90px; /* Altura del textarea */
+  padding: 40px; /* Espaciado interno */
+  border: 1px solid #ccc; /* Borde */
+  border-radius: 20px; /* Bordes redondeados */
+  resize: none; /* Evita que el textarea sea redimensionable */
+  font-family: "Source Sans Pro", sans-serif; /* Fuente */
+  font-size: 16px; /* Tamaño de fuente */
+  outline: none; /* Quita el contorno al hacer clic */
+}
+
+.comment-textarea textarea::placeholder {
+  color: #999; /* Color del texto de marcador de posición */
+}
+
+.comment-textarea .star-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.comment-textarea .fas.fa-star {
+  font-size: 44px;
+  color: #000000; /* Color de las estrellas no seleccionadas */
+  cursor: pointer;
+  margin: 0 5px;
+}
+
+.comment-textarea .fas.fa-star.selected {
+  color: #FFD700; /* Color de las estrellas seleccionadas */
+}
+
+.comment-textarea button {
+  background-color: #007bff; /* Color de fondo del botón */
+  color: white; /* Color del texto del botón */
+  border: none; /* Quita el borde del botón */
+  border-radius: 5px; /* Bordes redondeados */
+  padding: 10px 20px; /* Espaciado interno */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  margin-top: 40px; /* Espacio entre el textarea y el botón */
+}
+
+.comment-textarea button:hover {
+  background-color: #365575; /* Color de fondo del botón al pasar el ratón */
+}
+
+.chart-container {
+  width: 100%;
+  height: 400px; /* Ajusta la altura según tus necesidades */
+}
+
+.comment-textarea .error-message {
+  color: red;
+  margin-top: 10px;
+}
+
+/*# sourceMappingURL=main-content.css.map */
